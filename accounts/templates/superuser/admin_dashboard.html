@@ -1,0 +1,13 @@
+{% extends 'base_accounts_admin.html' %}
+
+{% block content %}
+  <h2>Admin Dashboard</h2>
+  <p>Welcome, {{ request.user.username }}!</p>
+
+  <h3>Staff Members:</h3>
+  {% for member in staff_members %}
+    <p>Username: {{ member.username }}</p>
+  {% empty %}
+    <p>No staff members registered yet.</p>
+  {% endfor %}
+{% endblock %} 

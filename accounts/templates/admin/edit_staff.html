@@ -1,0 +1,18 @@
+<!-- edit_staff.html -->
+
+{% extends 'base_accounts_admin.html' %}
+
+{% block content %}
+<h2>Edit Profile</h2>
+
+<form method="POST">
+   {% csrf_token %}
+   <label for="username">Username:</label><br>
+   <input type="text" id="username" name="username" value="{{ staff.username }}"><br>
+   <input type="submit" value="Submit">
+</form>
+
+{% if error %}
+   <p><strong>{{ error }}</strong></p>
+{% endif %}
+{% endblock %}

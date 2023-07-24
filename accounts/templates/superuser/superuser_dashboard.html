@@ -1,0 +1,17 @@
+{% extends 'base_accounts_admin.html' %}
+
+{% block content %}
+  <h2>SuperUser Dashboard</h2>
+  <p>You are SuperUser. Welcome {{ request.user.username }}!</p>
+  <a href="{% url 'create_admin'  %}">Create new Adin</a>
+
+
+  <h3>Admins:</h3>
+  {% for admin in admins %}
+    <p>Username: {{ admin.username }}</p>
+    <a href="{% url 'edit_admin' admin.id %}">Edit</a> | 
+    <a href="{% url 'delete_admin' admin.id %}">Delete</a>
+  {% empty %}
+    <p>No admins registered yet.</p>
+  {% endfor %}
+{% endblock %}

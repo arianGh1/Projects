@@ -1,0 +1,21 @@
+<!-- create_staff.html -->
+
+{% extends 'base_accounts_admin.html' %}
+
+{% block content %}
+<h2>Create Staff</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username" required><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br>
+    <input type="submit" value="Create">
+</form>
+
+{% if error %}
+    <p><strong>{{ error }}</strong></p>
+{% endif %}
+{% endblock %}
+

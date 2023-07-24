@@ -1,0 +1,54 @@
+<!-- staff/staff_dashboard.html -->
+
+{% extends 'base_accounts_admin.html' %}
+
+{% block content %}
+<h2>Staff Dashboard</h2>
+
+<p>You are logged as staff. Welcome, {{ request.user.username }}!</p>
+
+<!-- Register Parent Link -->
+<a href="{% url 'register_parent' %}">Register Parent</a>
+
+<!-- List of Parents -->
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for parent in parents %}
+        <tr>
+            <td>{{ parent.name }}</td>
+            <td>{{ parent.surname }}</td>
+            <td>{{ parent.email }}</td>
+            <td>{{ parent.phone_number }}</td>
+            <td>
+                <!-- Delete Parent -->
+                <form action="{% url 'delete_parent' parent.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete?');">
+                </form>
+                
+                <!-- Update Parent Link -->
+                <a href="{% url 'update_parent' parent.id %}">Edit</a>
+
+                <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
+                <!--
+                <form action="{% url 'remind_parent' parent.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Remind Payment Due">
+                </form>
+                -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

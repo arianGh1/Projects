@@ -1,0 +1,19 @@
+<!-- admin_dashboard.html -->
+
+{% extends 'base_accounts_admin.html' %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+{% for staff in staff %}
+    <div>
+        <h3>{{ staff.username }}</h3>
+        <a href="{% url 'edit_staff' staff.id %}">Edit</a>
+        <a href="{% url 'delete_staff' staff.id %}">Delete</a>
+    </div>
+{% empty %}
+    <p>No staff members yet.</p>
+{% endfor %}
+
+<a href="{% url 'create_staff' %}">Create New Staff Member</a>
+{% endblock %}
