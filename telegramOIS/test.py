@@ -5,7 +5,7 @@ def start(update, context):
     update.message.reply_text('Hello, I am your Telegram bot!')
 
 def main():
-    updater = Updater(token='6626586321:AAEnTg08uDV5oUTtGaXYJL0rLBe9rNx5nZ8', use_context=True)
+    updater = Updater(token='', use_context=True)
 
     dp = updater.dispatcher
 
