@@ -38,13 +38,13 @@
                 <!-- Update Parent Link -->
                 <a href="{% url 'update_parent' parent.id %}">Edit</a>
 
-                <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
+                {% comment %} <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
                 <!--
                 <form action="{% url 'remind_parent' parent.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <input type="submit" value="Remind Payment Due">
                 </form>
-                -->
+                --> {% endcomment %}
             </td>
         </tr>
         {% endfor %}
