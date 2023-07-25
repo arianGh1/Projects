@@ -34,9 +34,9 @@ urlpatterns = [
 
 
     path('staff_dashboard/', StaffDashboardView.as_view(), name='staff_dashboard'),
-    path('staff_dashboard/register_parent/', RegisterParentView.as_view(), name='register_parent'),
+    path('staff_dashboard/register_parent', RegisterParentView.as_view(), name='register_parent'),
     path('staff_dashboard/delete_parent/<int:parent_id>/', DeleteParentView.as_view(), name='delete_parent'),
-    path('staff_dashboard/update_parent/<int:parent_id>/', UpdateParentView.as_view(), name='update_parent'),
+    path('staff_dashboard/update_parent/<int:parent_id>', UpdateParentView.as_view(), name='update_parent'),
 
 
 

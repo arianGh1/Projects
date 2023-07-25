@@ -12,9 +12,6 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     {% block extra_css %}
     <style>    
@@ -32,6 +29,20 @@
     border-bottom: 1px solid #ffc107; 
     padding-bottom: 8px; 
     }
+    html, body {
+        height: 100%;
+    }
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    .content-wrap {
+        flex: 1 0 auto;
+    }
+    .footer {
+        flex-shrink: 0;
+    }
     </style>
 
     {% endblock %}
@@ -41,45 +52,59 @@
         <a class="navbar-brand" href="#" style="color:#faf600"><i class="fas fa-users-cog"></i> EMS</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ems:employee-list' %}"><i class="fas fa-user-friends"></i> Employees</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ems:teacher-list' %}"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ems:student-list' %}"><i class="fas fa-user-graduate"></i> Students</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ems:parent-list' %}"><i class="fas fa-users"></i> Parents</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ems:interaction-list' %}"><i class="fas fa-comments"></i> Interactions</a>
-                </li>
                 {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logged in as: 
+                        {% if user.is_superuser %} 
+                            Superuser 
+                        {% elif user.is_staff %} 
+                            Staff 
+                        {% else %} 
+                            Parent 
+                        {% endif %}
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ems:logout' %}">Logout</a> 
+                        <a class="nav-link" href="{% url 'superuser_dashboard' %}">Superuser Dashboard</a>
                     </li>
                     <li class="nav-item">
-                         <a class="nav-link" href="{% url 'ems:user-detail' user.id %}">View Details</a> 
+                        <a class="nav-link" href="{% url 'create_admin' %}">Create Admin</a>
                     </li>
+                    <!-- Add more superuser-specific links as needed -->
+                {% elif user.is_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_staff' %}">Create Staff</a>
+                    </li>
+                    <!-- Add more admin-specific links as needed -->
                 {% else %}
                     <li class="nav-item">
-                         <a class="nav-link" href="{% url 'ems:login' %}">Login</a> 
+                        <a class="nav-link" href="{% url 'staff_dashboard' %}">Staff Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                         <a class="nav-link" href="{% url 'register' %}">Register</a> 
-                    </li>
+                   
+                    <!-- Add more staff-specific links as needed -->
                 {% endif %}
+                <!-- Common links go here -->
             </ul>
         </div>
     </nav>
     
 
     <div class="container py-4">
-        {% block content %}
-        {% endblock %}
+        <div class="card w-100">
+            <div class="card-body">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
+    
+    
 
     <footer class="footer py-3 text-white text-center">
         <small>Employee Management System © 2023</small>
