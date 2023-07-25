@@ -33,7 +33,7 @@ class Applicant(Person):
 
 
 class Parent(Person):
-    username = models.CharField(max_length=120, blank=True, null=False)
+    username = models.CharField(max_length=120, blank=True, null=False, unique=True)
     password = models.CharField(max_length=120, blank=True, null=False)
 
 

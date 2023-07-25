@@ -1,54 +1,59 @@
 <!-- staff/staff_dashboard.html -->
 
-{% extends 'base_accounts_admin.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>Staff Dashboard</h2>
+<div class="card">
+    <div class="card-header">
+        <h2>Staff Dashboard</h2>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Welcome, {{ request.user.username }}!</p>
+        <!-- Register Parent Button -->
+        <a href="{% url 'register_parent' %}" class="btn btn-primary">Register Parent</a>
 
-<p>You are logged as staff. Welcome, {{ request.user.username }}!</p>
+        <!-- List of Parents -->
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for parent in parents %}
+                    <tr>
+                        <td>{{ parent.name }}</td>
+                        <td>{{ parent.surname }}</td>
+                        <td>{{ parent.email }}</td>
+                        <td>{{ parent.phone_number }}</td>
+                        <td>
+                            <!-- Delete Parent -->
+                            <form action="{% url 'delete_parent' parent.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+                            </form>
+                            
+                            <!-- Update Parent Button -->
+                            <a href="{% url 'update_parent' parent.id %}" class="btn btn-success btn-sm">Edit</a>
 
-<!-- Register Parent Link -->
-<a href="{% url 'register_parent' %}">Register Parent</a>
-
-<!-- List of Parents -->
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for parent in parents %}
-        <tr>
-            <td>{{ parent.name }}</td>
-            <td>{{ parent.surname }}</td>
-            <td>{{ parent.email }}</td>
-            <td>{{ parent.phone_number }}</td>
-            <td>
-                <!-- Delete Parent -->
-                <form action="{% url 'delete_parent' parent.id %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete?');">
-                </form>
-                
-                <!-- Update Parent Link -->
-                <a href="{% url 'update_parent' parent.id %}">Edit</a>
-
-                <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
-                <!--
-                <form action="{% url 'remind_parent' parent.id %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <input type="submit" value="Remind Payment Due">
-                </form>
-                -->
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+                            {% comment %} <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
+                            <!--
+                            <form action="{% url 'remind_parent' parent.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-warning btn-sm">Remind Payment Due</button>
+                            </form>
+                            --> {% endcomment %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

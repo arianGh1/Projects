@@ -1,1 +1,6 @@
 db.sql*
+*pyc
+*.pyc
+.DS_Store
+
+
