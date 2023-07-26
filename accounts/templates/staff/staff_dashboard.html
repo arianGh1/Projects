@@ -1,20 +1,119 @@
-<!-- staff/staff_dashboard.html -->
-
 {% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+  .table-hover tbody tr:hover {
+    color: #fff;
+    background-color: #6c757d;
+  }
+  .table td, .table th {
+    padding: 1.5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 2rem;
+    border-radius: 5px;
+  }
+  .card-header {
+    background-color: #343a40;
+    color: #fff;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(to right, #a007ff, #003ce0);
+    border: none;
+    color: #fff;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    transition: all 0.5s;
+    cursor: pointer;
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to left, #a007ff, #003ce0);
+}
+
+  .btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .btn-success:hover {
+    background-color: #1e7e34;
+    border-color: #1e7e34;
+  }
+
+  .btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+  }
+  
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #343a40;
+    color: #343a40;
+  }
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    width: 100%;  
+  }
+  .action-form {
+    width: 100%;  
+  }
+
+  .action-container {
+    display: flex;  
+    justify-content: space-around;  
+  }
+  .table {
+    width: 100%; 
+  }
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.card-text {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <h2>Staff Dashboard</h2>
+        <h2 style="text-align: center;">Staff Dashboard</h2>
     </div>
     <div class="card-body">
+      <div class="header-content">
         <p class="card-text">Welcome, {{ request.user.username }}!</p>
         <!-- Register Parent Button -->
         <a href="{% url 'register_parent' %}" class="btn btn-primary">Register Parent</a>
-
+      </div>
         <!-- List of Parents -->
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -32,22 +131,25 @@
                         <td>{{ parent.email }}</td>
                         <td>{{ parent.phone_number }}</td>
                         <td>
-                            <!-- Delete Parent -->
-                            <form action="{% url 'delete_parent' parent.id %}" method="post" style="display: inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
-                            </form>
-                            
+                          <div class="action-container">
                             <!-- Update Parent Button -->
-                            <a href="{% url 'update_parent' parent.id %}" class="btn btn-success btn-sm">Edit</a>
-
-                            {% comment %} <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
-                            <!--
-                            <form action="{% url 'remind_parent' parent.id %}" method="post" style="display: inline;">
+                            <form action="{% url 'update_parent' parent.id %}" method="post" class="action-form">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-warning btn-sm">Remind Payment Due</button>
+                                <button type="submit" class="btn btn-success btn-sm">Edit</button>
                             </form>
-                            --> {% endcomment %}
+                            <!-- Delete Parent -->
+                            <form action="{% url 'delete_parent' parent.id %}" method="post" class="action-form">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?');">Delete</button>
+                              {% comment %} <!-- Remind Parent (Uncomment once the RemindParentView is uncommented) -->
+                              <!--
+                              <form action="{% url 'remind_parent' parent.id %}" method="post" style="display: inline;">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-warning btn-sm">Remind Payment Due</button>
+                              </form>
+                              --> {% endcomment %}
+                            </form>
+                        </div>
                         </td>
                     </tr>
                     {% endfor %}
