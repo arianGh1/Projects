@@ -1,17 +1,84 @@
 {% extends 'base_accounts_admin.html' %}
 
+{% block extra_css %}
+<style>
+  .dashboard-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 2rem;
+    border-radius: 15px;
+  }
+  .dashboard-card-header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+  }
+  .dashboard-card-body {
+    padding: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: #4a4a4a;
+  }
+  .admin-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+  .admin-actions a {
+    margin: 0 1rem;
+  }
+  .btn {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-family: 'Arial', sans-serif;
+  }
+  .btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  h2, h3 {
+    font-family: 'Arial', sans-serif;
+  }
+  p {
+    font-family: 'Roboto', sans-serif;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-  <h2>SuperUser Dashboard</h2>
-  <p>You are SuperUser. Welcome {{ request.user.username }}!</p>
-  <a href="{% url 'create_admin'  %}">Create new Adin</a>
-
-
-  <h3>Admins:</h3>
-  {% for admin in admins %}
-    <p>Username: {{ admin.username }}</p>
-    <a href="{% url 'edit_admin' admin.id %}">Edit</a> | 
-    <a href="{% url 'delete_admin' admin.id %}">Delete</a>
-  {% empty %}
-    <p>No admins registered yet.</p>
-  {% endfor %}
+<div class="dashboard-card">
+  <div class="dashboard-card-header">
+    <h2>SuperUser Dashboard</h2>
+    <a href="{% url 'create_admin'  %}" class="btn">Create New Admin</a>
+  </div>
+  <div class="dashboard-card-body">
+    <p >You are a SuperUser. Welcome, <span style="font-weight: bold;">{{ request.user.username }}</span>!</p>
+    <h3 style="margin-bottom: 1rem;">Admins:</h3>
+    {% for admin in admins %}
+    <div class="admin-list-item">
+      <p style="font-weight: bold;">Username: <span style="font-weight: normal;">{{ admin.username }}</span></p>
+      <div class="admin-actions">
+        <a href="{% url 'edit_admin' admin.id %}" class="btn">Edit</a> 
+        <a href="{% url 'delete_admin' admin.id %}" class="btn">Delete</a>
+      </div>
+    </div>
+    {% empty %}
+      <p>No admins registered yet.</p>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
