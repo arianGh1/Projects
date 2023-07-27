@@ -1,30 +1,82 @@
-<!-- register_parent.html -->
-
 {% extends 'base_accounts_admin.html' %}
 
+{% block extra_css %}
+<style>
+  .register-parent-card {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    margin: 2rem;
+    border-radius: 15px;
+    background-color: #f0f8ff;  /* Light blue color */
+  }
+  .register-parent-card-header {
+    background-color: #4682b4;  /* Steel blue color */
+    color: #fff;
+    padding: 1rem;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  .register-parent-card-body {
+    padding: 2rem;
+    font-family: 'Roboto', sans-serif;
+    color: #4a4a4a;
+  }
+  .register-parent-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .register-parent-form label,
+  .register-parent-form input {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  .register-parent-form button {
+    color: #fff;
+    background-color: #6aafe6;  /* Light steel blue color */
+    border-color: #6aafe6;
+    border-radius: 20px;
+    padding: 0.5rem 2rem;
+    font-family: 'Arial', sans-serif;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .register-parent-form button:hover {
+    background-color: #4682b4;  /* Steel blue color */
+    border-color: #4682b4;
+  }
+  .register-parent-form p {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-<h2>Register Parent</h2>
-
-<form method="post">
-    {% csrf_token %}
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" required><br>
-
-    <label for="surname">Surname:</label><br>
-    <input type="text" id="surname" name="surname" required><br>
-
-    <label for="phone_number">Phone number:</label><br>
-    <input type="text" id="phone_number" name="phone_number" required><br>
-
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br>
-
-    <button type="submit">Register</button>
-</form>
-
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
-
+<div class="register-parent-card">
+  <div class="register-parent-card-header">
+    <h2>Register Parent</h2>
+  </div>
+  <div class="register-parent-card-body">
+    <form method="post" class="register-parent-form">
+      {% csrf_token %}
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" name="surname" required>
+      <label for="phone_number">Phone number:</label>
+      <input type="text" id="phone_number" name="phone_number" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit">Register</button>
+      {% if error %}
+        <p>{{ error }}</p>
+      {% endif %}
+    </form>
+  </div>
+</div>
 {% endblock %}
