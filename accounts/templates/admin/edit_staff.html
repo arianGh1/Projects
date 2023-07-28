@@ -10,8 +10,8 @@
     border-radius: 15px;
   }
   .edit-staff-card-header {
-    background-color: #343a40;
-    color: #fff;
+    background-color: #001F3F;
+    color: #007BFF;
     padding: 1rem;
     border-radius: 15px 15px 0 0;
     text-align: center;
@@ -45,8 +45,8 @@
     transition: all 0.3s;
   }
   .edit-staff-form input[type="submit"]:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #28a745;
+    border-color: #28a745;
   }
 </style>
 {% endblock %}
@@ -62,7 +62,7 @@
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" value="{{ staff.username }}">
       {% if error %}
-        <p>{{ error }}</p>
+        <p style="color:red;">{{ error }}</p>
       {% endif %}
       <input type="submit" value="Submit">
     </form>
