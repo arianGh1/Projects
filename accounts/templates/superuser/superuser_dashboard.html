@@ -8,8 +8,8 @@
     border-radius: 15px;
   }
   .dashboard-card-header {
-    background-color: #343a40;
-    color: #fff;
+    background-color: #001F3F;
+    color: #007BFF;
     padding: 1rem;
     border-radius: 15px 15px 0 0;
     display: flex;
@@ -21,7 +21,8 @@
   .dashboard-card-body {
     padding: 2rem;
     font-family: 'Roboto', sans-serif;
-    color: #4a4a4a;
+    color: #001F3F;
+    background-color: #F7F7F7;
   }
   .admin-list-item {
     display: flex;
@@ -31,24 +32,31 @@
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 10px;
-    background-color: #f5f5f5;
+    background-color: #f7f7f7;
   }
   .admin-actions a {
     margin: 0 1rem;
   }
   .btn {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
     border-radius: 20px;
     padding: 5px 15px;
     text-decoration: none;
     transition: all 0.3s;
     font-family: 'Arial', sans-serif;
+    background-color: #007BFF;
+    
+  }
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
   }
   .btn:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #28a745;
   }
   h2, h3 {
     font-family: 'Arial', sans-serif;
@@ -72,8 +80,8 @@
     <div class="admin-list-item">
       <p style="font-weight: bold;">Username: <span style="font-weight: normal;">{{ admin.username }}</span></p>
       <div class="admin-actions">
-        <a href="{% url 'edit_admin' admin.id %}" class="btn">Edit</a> 
-        <a href="{% url 'delete_admin' admin.id %}" class="btn">Delete</a>
+        <a href="{% url 'edit_admin' admin.id %}" class="btn btn-success">Edit</a> 
+        <a href="{% url 'delete_admin' admin.id %}" class="btn btn-danger">Delete</a>
       </div>
     </div>
     {% empty %}
